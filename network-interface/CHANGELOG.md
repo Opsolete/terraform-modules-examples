@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Opsolete/terraform-modules-examples/compare/network-interface-v1.0.0...network-interface-v1.1.0) (2026-11-10)
+
+
+### Features
+
+* **network-interface:** resource named main, moved from its old name ([4f05753](https://github.com/Opsolete/terraform-modules-examples/commit/4f057537ccaa048c3d081e69bd1151ffee8965d8))
+
 ## 1.0.0 (2026-11-10)
 
 

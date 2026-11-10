@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/Opsolete/terraform-modules-examples/compare/virtualmachine-v4.0.0...virtualmachine-v4.1.0) (2026-11-10)
+
+
+### Features
+
+* **virtualmachine:** existing data disks, auto-shutdown and NSG are imported ([de146d7](https://github.com/Opsolete/terraform-modules-examples/commit/de146d7c47bf2df5937d966c331ac6ba096cf2fe))
+
 ## [4.0.0](https://github.com/Opsolete/terraform-modules-examples/compare/virtualmachine-v3.2.0...virtualmachine-v4.0.0) (2026-11-10)
 
 
