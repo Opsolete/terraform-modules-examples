@@ -103,3 +103,81 @@ resource "azurerm_linux_virtual_machine" "self" {
     }
   }
 }
+
+locals {
+  vm_id = coalesce(one(azurerm_windows_virtual_machine.self[*].id), one(azurerm_linux_virtual_machine.self[*].id))
+  # by LUN: unique per VM, so adding or removing one disk leaves the others alone
+  data_disks = { for d in jsondecode(var.data_disks_json) : tostring(d.lun) => d }
+  nsg_rules  = jsondecode(var.nsg_rules_json)
+}
+
+# Data disks, empty, each attached at its LUN.
+resource "azurerm_managed_disk" "data" {
+  for_each             = local.data_disks
+  name                 = coalesce(try(each.value.name, null), "${var.name}-data-${each.key}")
+  resource_group_name  = var.resource_group_name
+  location             = var.location
+  storage_account_type = try(each.value.type, "Standard_LRS")
+  create_option        = "Empty"
+  disk_size_gb         = each.value.size_gb
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "data" {
+  for_each           = local.data_disks
+  managed_disk_id    = azurerm_managed_disk.data[each.key].id
+  virtual_machine_id = local.vm_id
+  lun                = each.value.lun
+  caching            = try(each.value.caching, "ReadWrite")
+
+  lifecycle {
+    # How the disk was first attached (Attach, or Empty for a disk made with the VM in the portal): it only
+    # matters then, so an imported attachment mustn't plan its replacement.
+    ignore_changes = [create_option]
+  }
+}
+
+# Daily auto-shutdown, optionally with an email before it.
+resource "azurerm_dev_test_global_vm_shutdown_schedule" "self" {
+  count                 = var.auto_shutdown_time != null ? 1 : 0
+  virtual_machine_id    = local.vm_id
+  location              = var.location
+  enabled               = true
+  daily_recurrence_time = var.auto_shutdown_time
+  timezone              = var.auto_shutdown_timezone
+
+  notification_settings {
+    enabled         = var.auto_shutdown_notification_email != null
+    email           = var.auto_shutdown_notification_email
+    time_in_minutes = var.auto_shutdown_notification_minutes
+  }
+}
+
+# A network security group of the VM's own, on its network interface.
+resource "azurerm_network_security_group" "self" {
+  count               = var.nsg_name != null ? 1 : 0
+  name                = var.nsg_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+
+  dynamic "security_rule" {
+    for_each = local.nsg_rules
+    content {
+      name                       = security_rule.value.name
+      priority                   = security_rule.value.priority
+      direction                  = try(security_rule.value.direction, "Inbound")
+      access                     = try(security_rule.value.access, "Allow")
+      protocol                   = try(security_rule.value.protocol, "Tcp")
+      source_port_range          = try(security_rule.value.source_port_range, "*")
+      destination_port_range     = try(security_rule.value.destination_port_range, "*")
+      source_address_prefix      = try(security_rule.value.source_address_prefix, "*")
+      destination_address_prefix = try(security_rule.value.destination_address_prefix, "*")
+      description                = try(security_rule.value.description, "")
+    }
+  }
+}
+
+resource "azurerm_network_interface_security_group_association" "self" {
+  count                     = var.nsg_name != null ? 1 : 0
+  network_interface_id      = azurerm_network_interface.self.id
+  network_security_group_id = azurerm_network_security_group.self[0].id
+}
