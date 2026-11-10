@@ -1,0 +1,48 @@
+name: ci
+
+# Every module is a folder with its own versions: release-please opens one release PR per module whose folder
+# changed (Conventional Commits decide the bump) and, once merged, tags it <folder>-v<version>.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+        with:
+          terraform_version: 1.17.0 # Opsolete's runners
+          terraform_wrapper: false
+      - run: terraform fmt -recursive -check
+      - name: validate each module
+        # virtualmachine calls the others from the registry, which CI can't reach: fmt only
+        run: |
+          for d in */; do
+            d=${d%/}
+            [ "$d" = virtualmachine ] && continue
+            echo "::group::$d"
+            (cd "$d" && terraform init -backend=false -input=false -no-color >/dev/null && terraform validate -no-color) || exit 1
+            echo "::endgroup::"
+          done
+
+  release-please:
+    needs: check
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          # A release PR opened with GITHUB_TOKEN gets no CI run; set RELEASE_PLEASE_TOKEN (contents and pull
+          # requests read/write on this repo) to have its checks run like on any PR.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
