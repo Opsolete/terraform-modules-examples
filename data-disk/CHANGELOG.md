@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0](https://github.com/Opsolete/terraform-modules-examples/compare/data-disk-v0.1.0...data-disk-v1.0.0) (2026-11-10)
+
+
+### Documentation
+
+* a README per building block ([87cd001](https://github.com/Opsolete/terraform-modules-examples/commit/87cd0015a1044cda25323af1ac0aceb046025dff))
+
 ## 0.1.0 (2026-11-10)
 
 
