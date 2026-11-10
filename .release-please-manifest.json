@@ -1,5 +1,6 @@
 {
   "resourcegroup": "1.0.0",
   "virtualmachine": "3.2.0",
-  "data-disk": "0.1.0"
+  "data-disk": "0.1.0",
+  "network-security-group": "1.0.0"
 }
