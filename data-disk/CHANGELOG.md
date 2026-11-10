@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Opsolete/terraform-modules-examples/compare/data-disk-v1.0.0...data-disk-v1.1.0) (2026-11-10)
+
+
+### Features
+
+* **data-disk:** import an existing disk with existing = true; resources named main ([471e44b](https://github.com/Opsolete/terraform-modules-examples/commit/471e44b4a4ea56393f640ec9888c99ebe4e469c2))
+
 ## [1.0.0](https://github.com/Opsolete/terraform-modules-examples/compare/data-disk-v0.1.0...data-disk-v1.0.0) (2026-11-10)
 
 

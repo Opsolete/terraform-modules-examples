@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Opsolete/terraform-modules-examples/compare/network-security-group-v1.0.0...network-security-group-v1.1.0) (2026-11-10)
+
+
+### Features
+
+* **network-security-group:** import an existing group with existing = true; resources named main ([471603e](https://github.com/Opsolete/terraform-modules-examples/commit/471603ea6e07305a95d4778bc8e91b8739fac1f4))
+
 ## 1.0.0 (2026-11-10)
 
 

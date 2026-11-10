@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Opsolete/terraform-modules-examples/compare/linux-vm-v1.0.0...linux-vm-v1.1.0) (2026-11-10)
+
+
+### Features
+
+* **linux-vm:** resource named main, moved from its old name ([912b3b8](https://github.com/Opsolete/terraform-modules-examples/commit/912b3b8820f74ddd63483a91dc032405de3476d5))
+
 ## 1.0.0 (2026-11-10)
 
 
