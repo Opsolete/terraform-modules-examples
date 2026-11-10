@@ -1,7 +1,8 @@
 name: ci
 
-# Every module is a folder with its own versions: release-please opens one release PR per module whose folder
-# changed (Conventional Commits decide the bump) and, once merged, tags it <folder>-v<version>.
+# Every module is a folder with its own versions: release-please keeps one release PR with the next version of
+# each module whose folder changed (Conventional Commits decide each bump) and, once merged, tags each module
+# <folder>-v<version>, with its own changelog and GitHub release. One PR: they all update the manifest.
 on:
   push:
     branches: [main]
