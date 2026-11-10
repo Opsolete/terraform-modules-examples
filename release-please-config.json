@@ -6,13 +6,37 @@
   "tag-separator": "-",
   "separate-pull-requests": true,
   "packages": {
-    "resourcegroup": { "release-type": "terraform-module", "component": "resourcegroup" },
-    "virtualmachine": { "release-type": "terraform-module", "component": "virtualmachine" },
-    "network-interface": { "release-type": "terraform-module", "component": "network-interface", "initial-version": "1.0.0" },
-    "windows-vm": { "release-type": "terraform-module", "component": "windows-vm", "initial-version": "1.0.0" },
-    "linux-vm": { "release-type": "terraform-module", "component": "linux-vm", "initial-version": "1.0.0" },
-    "data-disk": { "release-type": "terraform-module", "component": "data-disk", "initial-version": "1.0.0" },
-    "shutdown-schedule": { "release-type": "terraform-module", "component": "shutdown-schedule", "initial-version": "1.0.0" },
-    "network-security-group": { "release-type": "terraform-module", "component": "network-security-group", "initial-version": "1.0.0" }
+    "resourcegroup": {
+      "release-type": "terraform-module",
+      "component": "resourcegroup"
+    },
+    "virtualmachine": {
+      "release-type": "terraform-module",
+      "component": "virtualmachine"
+    },
+    "network-interface": {
+      "release-type": "terraform-module",
+      "component": "network-interface"
+    },
+    "windows-vm": {
+      "release-type": "terraform-module",
+      "component": "windows-vm"
+    },
+    "linux-vm": {
+      "release-type": "terraform-module",
+      "component": "linux-vm"
+    },
+    "data-disk": {
+      "release-type": "terraform-module",
+      "component": "data-disk"
+    },
+    "shutdown-schedule": {
+      "release-type": "terraform-module",
+      "component": "shutdown-schedule"
+    },
+    "network-security-group": {
+      "release-type": "terraform-module",
+      "component": "network-security-group"
+    }
   }
 }
