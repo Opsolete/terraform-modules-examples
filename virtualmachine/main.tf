@@ -1,5 +1,6 @@
 # A Windows or Linux VM with its network interface, and optionally data disks, a daily auto-shutdown and a
-# network security group: each a building block in ./modules, composed here.
+# network security group: each a building block of its own in this repository (its own folder, versions and
+# changelog), published to the registry and composed here.
 
 locals {
   # by LUN: unique per VM, so adding or removing one disk leaves the others alone
@@ -8,7 +9,8 @@ locals {
 }
 
 module "nic" {
-  source                = "./modules/network-interface"
+  source                = "opsolete.localhost:8080/terraform-modules-examples/network-interface/azurerm"
+  version               = "~> 1.0"
   name                  = coalesce(var.nic_name, "${var.name}-nic")
   resource_group_name   = var.resource_group_name
   location              = var.location
@@ -18,7 +20,8 @@ module "nic" {
 }
 
 module "windows" {
-  source                   = "./modules/windows-vm"
+  source                   = "opsolete.localhost:8080/terraform-modules-examples/windows-vm/azurerm"
+  version                  = "~> 1.0"
   count                    = var.os_type == "windows" ? 1 : 0
   name                     = var.name
   resource_group_name      = var.resource_group_name
@@ -37,7 +40,8 @@ module "windows" {
 }
 
 module "linux" {
-  source                   = "./modules/linux-vm"
+  source                   = "opsolete.localhost:8080/terraform-modules-examples/linux-vm/azurerm"
+  version                  = "~> 1.0"
   count                    = var.os_type == "linux" ? 1 : 0
   name                     = var.name
   resource_group_name      = var.resource_group_name
@@ -56,7 +60,8 @@ module "linux" {
 }
 
 module "data_disk" {
-  source              = "./modules/data-disk"
+  source              = "opsolete.localhost:8080/terraform-modules-examples/data-disk/azurerm"
+  version             = "~> 1.0"
   for_each            = local.data_disks
   name                = coalesce(try(each.value.name, null), "${var.name}-data-${each.key}")
   resource_group_name = var.resource_group_name
@@ -69,7 +74,8 @@ module "data_disk" {
 }
 
 module "shutdown_schedule" {
-  source               = "./modules/shutdown-schedule"
+  source               = "opsolete.localhost:8080/terraform-modules-examples/shutdown-schedule/azurerm"
+  version              = "~> 1.0"
   count                = var.auto_shutdown_time != null ? 1 : 0
   virtual_machine_id   = local.vm_id
   location             = var.location
@@ -80,7 +86,8 @@ module "shutdown_schedule" {
 }
 
 module "nsg" {
-  source               = "./modules/network-security-group"
+  source               = "opsolete.localhost:8080/terraform-modules-examples/network-security-group/azurerm"
+  version              = "~> 1.0"
   count                = var.nsg_name != null ? 1 : 0
   name                 = var.nsg_name
   resource_group_name  = var.resource_group_name
