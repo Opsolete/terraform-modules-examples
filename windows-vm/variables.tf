@@ -46,6 +46,11 @@ variable "existing" {
   type        = bool
   description = "VM exists already: import the VM named name in resource_group_name and its network interface instead of creating them (made in the portal, say). Its other settings may stay empty: the plan shows what differs. Opsolete switches it off once imported."
   default     = false
+
+  validation {
+    condition     = !var.existing || var.resource_group_name != null
+    error_message = "existing: set resource_group_name, the resource group the VM to import is in."
+  }
 }
 
 # Importing existing VMs: settings VMs made elsewhere, e.g. in the Azure portal, often have differently. Each

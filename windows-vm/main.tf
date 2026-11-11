@@ -5,6 +5,10 @@
 locals {
   # by LUN: unique per VM, so adding or removing one disk leaves the others alone
   data_disks = { for d in var.data_disks : tostring(d.lun) => d }
+  # What the parts refer to. While importing, the IDs found (import.tf): known when planning, so the parts' own
+  # import blocks can be planned even when the plan would replace the VM or NIC; once imported, the same IDs.
+  vm_id  = var.existing ? local.existing_vm_id : azurerm_windows_virtual_machine.main.id
+  nic_id = var.existing ? local.existing_nic_id : module.nic.id
 }
 
 module "nic" {
@@ -62,7 +66,7 @@ module "data_disk" {
   name                = coalesce(each.value.name, "${var.name}-data-${each.key}")
   resource_group_name = var.resource_group_name
   location            = var.location
-  virtual_machine_id  = azurerm_windows_virtual_machine.main.id
+  virtual_machine_id  = local.vm_id
   lun                 = each.value.lun
   size_gb             = each.value.size_gb
   type                = each.value.type
@@ -74,7 +78,7 @@ module "shutdown_schedule" {
   source               = "opsolete.localhost:8080/terraform-modules-examples/shutdown-schedule/azurerm"
   version              = "~> 1.1" # existing
   count                = var.auto_shutdown_time != null ? 1 : 0
-  virtual_machine_id   = azurerm_windows_virtual_machine.main.id
+  virtual_machine_id   = local.vm_id
   location             = var.location
   time                 = var.auto_shutdown_time
   timezone             = var.auto_shutdown_timezone
@@ -90,7 +94,7 @@ module "nsg" {
   name                 = var.nsg_name
   resource_group_name  = var.resource_group_name
   location             = var.location
-  network_interface_id = module.nic.id
+  network_interface_id = local.nic_id
   rules                = var.nsg_rules
   existing             = var.nsg_existing
 }
