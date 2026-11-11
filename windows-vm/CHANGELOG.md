@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.1](https://github.com/Opsolete/terraform-modules-examples/compare/windows-vm-v2.0.0...windows-vm-v2.0.1) (2026-11-11)
+
+
+### Bug Fixes
+
+* **windows-vm:** existing without resource_group_name says so ([18f5d40](https://github.com/Opsolete/terraform-modules-examples/commit/18f5d40e6f0462002d74e49adedcfb7a6b5f18aa))
+* **windows-vm:** import the parts while the VM doesn't fit yet, and say when the resource group is missing ([8f7d8e3](https://github.com/Opsolete/terraform-modules-examples/commit/8f7d8e3a6dff038831b64b656ef6d0fe3ca56616))
+* **windows-vm:** the parts can be imported while the VM doesn't fit yet ([5398a41](https://github.com/Opsolete/terraform-modules-examples/commit/5398a41cbba213d0cbf2dd9906bedf59c14c88b1))
+
 ## [2.0.0](https://github.com/Opsolete/terraform-modules-examples/compare/windows-vm-v1.1.0...windows-vm-v2.0.0) (2026-11-11)
 
 
