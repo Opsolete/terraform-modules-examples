@@ -1,9 +1,9 @@
 {
   "resourcegroup": "1.1.0",
-  "data-disk": "1.1.0",
-  "network-interface": "1.1.0",
-  "windows-vm": "1.1.0",
-  "linux-vm": "1.1.0",
-  "shutdown-schedule": "1.1.0",
-  "network-security-group": "1.1.0"
+  "data-disk": "2.0.0",
+  "network-interface": "2.0.0",
+  "windows-vm": "2.0.0",
+  "linux-vm": "2.0.0",
+  "shutdown-schedule": "2.0.0",
+  "network-security-group": "2.0.0"
 }

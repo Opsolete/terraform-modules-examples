@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/Opsolete/terraform-modules-examples/compare/linux-vm-v1.1.0...linux-vm-v2.0.0) (2026-11-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **windows-vm:** windows-vm creates its own network interface (network_interface_id is gone, subnet_id and the NIC's inputs are new), configures its provider and needs Terraform >= 1.16 and the registry; admin_password is required. Use it as a template, not as a building block.
+
+### Features
+
+* **windows-vm:** a template of its own, with its network interface and import ([44d3271](https://github.com/Opsolete/terraform-modules-examples/commit/44d32718466b8757239cb0c654f95ea56054a6bd))
+
 ## [1.1.0](https://github.com/Opsolete/terraform-modules-examples/compare/linux-vm-v1.0.0...linux-vm-v1.1.0) (2026-11-10)
 
 
