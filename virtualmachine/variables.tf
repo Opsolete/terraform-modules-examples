@@ -60,8 +60,14 @@ variable "ssh_public_key" {
   default     = null
 }
 
-# Importing existing VMs (Opsolete's Import): settings VMs made elsewhere, e.g. in the Azure portal, often have
-# differently. Each defaults to what this module always did, so new VMs don't change.
+variable "existing" {
+  type        = bool
+  description = "VM exists already: import the VM named name in resource_group_name and its network interface instead of creating them (made in the portal, say). Its other settings may stay empty: the plan shows what differs."
+  default     = false
+}
+
+# Importing existing VMs: settings VMs made elsewhere, e.g. in the Azure portal, often have differently. Each
+# defaults to what this module always did, so new VMs don't change.
 
 variable "nic_name" {
   type        = string
