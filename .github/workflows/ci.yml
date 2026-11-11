@@ -23,11 +23,11 @@ jobs:
           terraform_wrapper: false
       - run: terraform fmt -recursive -check
       - name: validate each module
-        # virtualmachine calls the others from the registry, which CI can't reach: fmt only
+        # a module that calls others from the registry (windows-vm), which CI can't reach: fmt only
         run: |
           for d in */; do
             d=${d%/}
-            [ "$d" = virtualmachine ] && continue
+            grep -q 'source *= *"opsolete' "$d"/*.tf && continue
             echo "::group::$d"
             (cd "$d" && terraform init -backend=false -input=false -no-color >/dev/null && terraform validate -no-color) || exit 1
             echo "::endgroup::"
