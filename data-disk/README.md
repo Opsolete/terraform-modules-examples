@@ -1,6 +1,6 @@
 # data-disk
 
-An empty managed disk, attached to a VM at a LUN. A building block of `virtualmachine` (one per disk); configures
+An empty managed disk, attached to a VM at a LUN. A building block of `windows-vm` (one per disk); configures
 no provider itself. Ignores how an imported disk was first attached (`create_option`).
 
 **Existing disk:** with `existing = true` the disk and its attachment are imported instead of created (`import.tf`,

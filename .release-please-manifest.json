@@ -1,6 +1,5 @@
 {
   "resourcegroup": "1.1.0",
-  "virtualmachine": "5.0.0",
   "data-disk": "1.1.0",
   "network-interface": "1.1.0",
   "windows-vm": "1.1.0",

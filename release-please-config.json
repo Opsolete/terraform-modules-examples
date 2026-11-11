@@ -10,10 +10,6 @@
       "release-type": "terraform-module",
       "component": "resourcegroup"
     },
-    "virtualmachine": {
-      "release-type": "terraform-module",
-      "component": "virtualmachine"
-    },
     "network-interface": {
       "release-type": "terraform-module",
       "component": "network-interface"

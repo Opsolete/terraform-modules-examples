@@ -1,10 +1,9 @@
 # An existing VM (existing = true, e.g. made in the Azure portal) is imported instead of created, with its network
 # interface: the VM found by name and resource group, its NIC as the one in that resource group attached to it (a
 # VM doesn't report its NICs, a NIC reports its VM). Both through azurerm_resources, not the feature-frozen
-# azurerm_virtual_machine family: the VM is imported into azurerm_windows_virtual_machine or
-# azurerm_linux_virtual_machine (windows-vm, linux-vm). Data disks, the auto-shutdown and the NSG have switches of
-# their own (data_disks[].existing, auto_shutdown_existing, nsg_existing). Once in state, Terraform skips these
-# blocks.
+# azurerm_virtual_machine family; azurerm refuses to import a Linux VM as a Windows one. Data disks, the
+# auto-shutdown and the NSG have switches of their own (data_disks[].existing, auto_shutdown_existing,
+# nsg_existing). Once in state, Terraform skips these blocks.
 
 data "azurerm_resources" "vm" {
   count               = var.existing ? 1 : 0
@@ -40,14 +39,8 @@ locals {
 }
 
 import {
-  for_each = var.existing && var.os_type == "windows" ? toset(["vm"]) : toset([])
-  to       = module.windows[0].azurerm_windows_virtual_machine.main
-  id       = local.existing_vm_id
-}
-
-import {
-  for_each = var.existing && var.os_type == "linux" ? toset(["vm"]) : toset([])
-  to       = module.linux[0].azurerm_linux_virtual_machine.main
+  for_each = var.existing ? toset(["vm"]) : toset([])
+  to       = azurerm_windows_virtual_machine.main
   id       = local.existing_vm_id
 }
 

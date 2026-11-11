@@ -1,6 +1,6 @@
 # shutdown-schedule
 
-A VM's daily auto-shutdown, optionally with an email before it. A building block of `virtualmachine`; configures
+A VM's daily auto-shutdown, optionally with an email before it. A building block of `windows-vm`; configures
 no provider itself.
 
 **Existing schedule:** with `existing = true` the schedule is imported instead of created (`import.tf`, Terraform
