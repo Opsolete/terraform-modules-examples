@@ -9,6 +9,12 @@ The provider runs with `data_plane_available = false`: the runner is outside the
 can't reach the account's data plane. Containers, queue properties and static websites aren't part of it.
 
 **Import:** with `existing = true` the module imports the account (`name`, `resource_group_name`) and its
-private endpoint (`private_endpoint_name`) instead of creating them; the subscription comes from `subnet_id`.
+private endpoint (`private_endpoint_name`) instead of creating them, in the provider's subscription
+(`ARM_SUBSCRIPTION_ID`).
+
+**Network:** the endpoint goes in subnet `subnet_name` of the virtual network `vnet_name` in resource group
+`vnet_resource_group_name`, in the same subscription. With a standard network per subscription, set the last two
+once per Opsolete project, as terraform variables in a variable set attached to the project, and offer the
+subnet names as a dropdown in the template.
 
 Not included: a private DNS zone group (link the endpoint to `privatelink.blob.core.windows.net` yourself).

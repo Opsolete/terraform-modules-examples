@@ -24,9 +24,21 @@ variable "replication_type" {
   default     = "LRS"
 }
 
-variable "subnet_id" {
+variable "subnet_name" {
   type        = string
-  description = "ID of the subnet the private endpoint gets its IP address in."
+  description = "Subnet the private endpoint gets its IP address in, in the subscription's standard virtual network."
+}
+
+# The subscription's standard network: the same for every workspace of a project, so a project's variable set
+# sets them (terraform variables), not the form.
+variable "vnet_name" {
+  type        = string
+  description = "Virtual network of the subnet."
+}
+
+variable "vnet_resource_group_name" {
+  type        = string
+  description = "Resource group of the virtual network."
 }
 
 variable "private_endpoint_name" {
