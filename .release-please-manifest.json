@@ -5,5 +5,6 @@
   "windows-vm": "2.0.1",
   "linux-vm": "2.0.0",
   "shutdown-schedule": "2.0.0",
-  "network-security-group": "2.0.0"
+  "network-security-group": "2.0.0",
+  "storage-account": "0.1.0"
 }
