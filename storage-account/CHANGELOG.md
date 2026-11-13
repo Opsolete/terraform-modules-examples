@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.0.0](https://github.com/Opsolete/terraform-modules-examples/compare/storage-account-v0.1.0...storage-account-v1.0.0) (2026-11-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **storage-account:** subnet_id is replaced by subnet_name, vnet_name and vnet_resource_group_name.
+
+### Features
+
+* **storage-account:** the subnet by name in the subscription's standard network ([c022a68](https://github.com/Opsolete/terraform-modules-examples/commit/c022a686c3740aafbbafeb13dcee31c8305fe032))
+
+
+### Bug Fixes
+
+* **storage-account:** require Terraform 1.16.1, which imports from a module ([e5d0efa](https://github.com/Opsolete/terraform-modules-examples/commit/e5d0efa0920ea64b19b04e8ec852699b2cca0eb7))
+
 ## 0.1.0 (2026-11-13)
 
 
