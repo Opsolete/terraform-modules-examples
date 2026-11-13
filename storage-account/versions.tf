@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.7" # for_each in import blocks
+  required_version = ">= 1.16.1" # import blocks in a module: older versions ignore them and create instead
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
