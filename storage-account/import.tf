@@ -1,8 +1,9 @@
 # An existing account (existing = true) is imported instead of created, together with its private endpoint:
-# the IDs follow from the inputs. Once in state, Terraform skips these blocks.
+# the IDs follow from the inputs and the provider's subscription. Once in state, Terraform skips these blocks.
+data "azurerm_client_config" "current" {}
+
 locals {
-  subscription = join("/", slice(split("/", var.subnet_id), 0, 3)) # /subscriptions/<id>
-  group        = "${local.subscription}/resourceGroups/${var.resource_group_name}/providers"
+  group = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${var.resource_group_name}/providers"
 }
 
 import {

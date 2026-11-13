@@ -1,5 +1,11 @@
 # A storage account without public access, reached through a private endpoint to its blob service.
 # The attributes read the inputs directly, so an import (existing = true) can hand back what it found.
+data "azurerm_subnet" "main" {
+  name                 = var.subnet_name
+  virtual_network_name = var.vnet_name
+  resource_group_name  = var.vnet_resource_group_name
+}
+
 resource "azurerm_storage_account" "main" {
   name                            = var.name
   resource_group_name             = var.resource_group_name
@@ -17,7 +23,7 @@ resource "azurerm_private_endpoint" "blob" {
   name                = var.private_endpoint_name
   resource_group_name = var.resource_group_name
   location            = var.location
-  subnet_id           = var.subnet_id
+  subnet_id           = data.azurerm_subnet.main.id
   tags                = var.tags
 
   private_service_connection {
